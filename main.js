@@ -5,16 +5,17 @@ const players = ["Please select a player", "human1", "human2", "human3"]
 const dates = ["Please select a date", "2024-01-20", "2024-06-05", "2024-07-05"]
 
 // --- FUNCTION TO POPULATE THE PLAYER DROPDOWN ---
-function populatePlayerDropdown() {
-    const playerDropdown = document.getElementById("dropdown-player-list")
+const playerDropdown = document.getElementById("dropdown-player-list")
 
+function populatePlayerDropdown() {
     players.forEach(function(player) {
         let option = document.createElement("option")
         option.value = player
         option.text = player
         playerDropdown.appendChild(option)
         })
-      }
+    
+  }
 
 // --- FUNCTION TO STOP TEXT "Please select a date" BEING CONVERTED INTO DATE
 function containsNumbers(dropdownDates) {
@@ -36,9 +37,9 @@ function formatDate(dateString) {
 }
 
 // --- FUNCTION TO POPULATE THE DATE DROPDOWN ---
-function populateDateDropdown() {
-    const dateDropdown = document.getElementById("dropdown-dates")
+const dateDropdown = document.getElementById("dropdown-dates")
 
+function populateDateDropdown() {
     dates.forEach(function(dateString){
         const formattedDate = formatDate(dateString)
 
@@ -47,6 +48,7 @@ function populateDateDropdown() {
         option.text = formattedDate
         dateDropdown.appendChild(option)
     })
+
 }
 
 // --- ATTENDEES PRESENT COUNTER ---
@@ -56,10 +58,12 @@ let attendeesPresent = 0
 function confirmAttendance() {
     const selectedPlayer = document.getElementById("dropdown-player-list").value
     const selectedDate = formatDate(document.getElementById("dropdown-dates").value)
-    
+
     if (selectedPlayer !== "Please select a player" && selectedDate !== "Please select a date") {
         console.log(`${selectedPlayer} has been marked as present on ${selectedDate}.`)
         alert("Thank you. Your attendance has been confirmed.")
+
+        playerDropdown.selectedIndex = 0
 
         attendeesPresent += 1
 
@@ -92,6 +96,3 @@ window.onload = function() {
     const confirmAttendanceButton = document.getElementById("button-confirm-attendance")
     confirmAttendanceButton.addEventListener("click", confirmAttendance)
   }
-
-// const confirmAttendanceButton = document.getElementById("button-confirm-attendance")
-// confirmAttendanceButton.addEventListener("click", confirmAttendance)
