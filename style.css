@@ -14,9 +14,30 @@ h1 {
     text-transform: uppercase;
     text-align: center;
 }
+h2 {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 #right-align {
     text-align: right;
 }
 div {
     margin-bottom: 30px;
+}
+
+.progress-bar-container {
+    margin-top: 10px;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+    width: 0;
+    transition: width 0.5s;
 }

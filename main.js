@@ -63,10 +63,13 @@ function confirmAttendance() {
         console.log(`${selectedPlayer} has been marked as present on ${selectedDate}.`)
         alert("Thank you. Your attendance has been confirmed.")
 
+        // reset player dropdown
         playerDropdown.selectedIndex = 0
 
+        // +1 to attendees present
         attendeesPresent += 1
 
+        // show percentage present, if selected date is today
         const today = new Date()
         const formattedToday = formatDate(today)
 
@@ -75,8 +78,13 @@ function confirmAttendance() {
             const percentage = (attendeesPresent / totalAttendees) * 100
 
             const percentageElement = document.getElementById("attendance-percentage")
-            percentageElement.textContent = `Today's attendance: ${percentage.toFixed(0)}% marked as present.`
+            percentageElement.innerHTML = `Today's attendance: ${attendeesPresent}<br>${percentage.toFixed(0)}% marked as present`
+
+            const progressBar = document.getElementById("progress-bar")
+            progressBar.style.width = `${percentage}%`
         }
+
+
 
     } else if (selectedPlayer == "Please select a player" && selectedDate == "Please select a date"){
         alert("Please select from the dropdown menus.")
