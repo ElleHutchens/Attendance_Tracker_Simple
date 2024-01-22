@@ -2,7 +2,11 @@
 const players = ["Please select a player", "human1", "human2", "human3"]
 
 // --- THE GAMES ---
-const dates = ["Please select a date", "2024-01-20", "2024-06-05", "2024-07-05"]
+const today = new Date()
+const dates = ["Please select a date", today, "2024-06-05", "2024-07-05"]
+
+// --- ATTENDEES PRESENT COUNTER ---
+let attendeesPresent = []
 
 // --- FUNCTION TO POPULATE THE PLAYER DROPDOWN ---
 const playerDropdown = document.getElementById("dropdown-player-list")
@@ -51,9 +55,6 @@ function populateDateDropdown() {
 
 }
 
-// --- ATTENDEES PRESENT COUNTER ---
-let attendeesPresent = 0
-
 // --- FUNCTION TO REGISTER ATTENDANCE ---
 function confirmAttendance() {
     const selectedPlayer = document.getElementById("dropdown-player-list").value
@@ -67,7 +68,10 @@ function confirmAttendance() {
         playerDropdown.selectedIndex = 0
 
         // +1 to attendees present
-        attendeesPresent += 1
+        if (!attendeesPresent.includes(selectedPlayer)) {
+            attendeesPresent.push(selectedPlayer)
+            console.log(attendeesPresent)
+        }
 
         // show percentage present, if selected date is today
         const today = new Date()
@@ -75,16 +79,14 @@ function confirmAttendance() {
 
         if (selectedDate === formattedToday) {
             const totalAttendees = players.length - 1
-            const percentage = (attendeesPresent / totalAttendees) * 100
+            const percentage = (attendeesPresent.length / totalAttendees) * 100
 
             const percentageElement = document.getElementById("attendance-percentage")
-            percentageElement.innerHTML = `Today's attendance: ${attendeesPresent}<br>${percentage.toFixed(0)}% marked as present`
+            percentageElement.innerHTML = `Today's attendance: ${attendeesPresent.length}<br>${percentage.toFixed(0)}% marked as present`
 
             const progressBar = document.getElementById("progress-bar")
             progressBar.style.width = `${percentage}%`
         }
-
-
 
     } else if (selectedPlayer == "Please select a player" && selectedDate == "Please select a date"){
         alert("Please select from the dropdown menus.")
